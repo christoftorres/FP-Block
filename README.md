@@ -17,7 +17,7 @@ Compile the source
 ------------------
 
 In order to "compile" the source code to a Firefox extension, you only need to
-run the Makefile or manually run the following command inside the console:
+run the file "Makefile" or manually run the following command inside the console:
 
 	zip -r ../fingerprintprivacy.xpi *
 
