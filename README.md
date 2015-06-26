@@ -10,6 +10,7 @@ Installation instructions
 =========================
 
 Compile the source
+------------------
 
 In order to "compile" the source code to a FireFox extension, you need to
 use the following command inside the fingerprintprivacy folder:
