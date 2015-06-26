@@ -16,13 +16,13 @@ Compile the source
 ------------------
 
 In order to "compile" the source code to a FireFox extension, you need to
-use the following command inside the fingerprintprivacy folder:
+use the following command inside the plugin folder:
 
 	zip -r ../FP-Block.xpi *
 
 Install the plugin
 ------------------
 
-To install the plugin, just drag and drop the fingerprintprivacy.xpi
+To install the plugin, just drag and drop the FP-Block.xpi
 file onto FireFox. A popup window will appear asking to install. Click
 "Install" and restart FireFox.
