@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<dialog
+  title="Edit Attribute"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  onload="onLoad()"
+  ondialogaccept="acceptEdit()"
+  persist="screenX screenY width height"
+  windowtype="myDialogWindowType">
+
+  <script type="application/javascript" src="chrome://fingerprintprivacy/content/attribute.js"/>
+  
+  <label value="Domain:" id="domain-name"/>
+  <groupbox>    
+    <grid>
+      <columns>
+        <column flex="1"/>
+        <column flex="2"/>
+      </columns>
+      <rows>
+        <row>
+          <label value="Attribute:"/>
+          <label style="font-weight: bold;" id="attribute-name"/>
+        </row>
+        <row>
+          <label value="Action:"/>
+          <menulist id="attribute-action" onselect="actionSelected()">
+            <menupopup>
+              <menuitem label="Allow" value="allow" image="chrome://fingerprintprivacy/skin/allow.png"/>
+              <menuitem label="Spoof" value="spoof" image="chrome://fingerprintprivacy/skin/spoof.png"/>
+              <menuitem label="Block" value="block" image="chrome://fingerprintprivacy/skin/block.png"/>
+            </menupopup>
+          </menulist>
+        </row>
+        <row>
+          <label value="Value:" id="attribute-label-value"/>
+          <textbox id="attribute-value" width="200"/>
+        </row>
+      </rows>
+    </grid>
+  </groupbox>
+</dialog>

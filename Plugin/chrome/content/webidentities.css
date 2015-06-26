@@ -1,0 +1,20 @@
+/****************************************************************/
+/* -- Fingerprint Privacy --                                    */
+/* Author: Christof Ferreira Torres                             */
+/* Date: 06.06.2014                                             */
+/****************************************************************/
+
+treechildren::-moz-tree-checkbox {
+  /* unchecked checkbox treecells. This style MUST come before treechildren::-moz-tree-checkbox(checked) otherwise it won't take effect.  */
+  list-style-image: url("chrome://fingerprintprivacy/skin/block.png");
+}
+
+treechildren::-moz-tree-checkbox(checked) {
+  /* css for checked cells. cbox-check.gif isn't available in Firefox 1, 2, and 3 on Mac OS X, so you should specify a URL to an image
+     in your extension or elsewhere. */
+  list-style-image: url("chrome://fingerprintprivacy/skin/allow.png");
+}
+
+#number-of-web-identities {
+	padding: 6px 0px 0px 100px;
+}

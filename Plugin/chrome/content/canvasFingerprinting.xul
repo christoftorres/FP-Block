@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<dialog
+  title="Manage Web Identities"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept">
+
+  <html:style>
+      .message {
+          width: 300px;
+          margin-left: 10px;
+          text-align: justify;
+      }
+
+      .title {
+          font-size: 14px;
+          margin-bottom: 10px;
+      }
+  </html:style>
+
+  <script>
+      window.onload = function() {
+          if (window.arguments != null) {
+              document.getElementById('website').innerHTML = "(" + window.arguments[0].url + ") ";
+          }
+      };
+  </script>
+
+  <grid>
+    <columns>
+      <column flex="1"/>
+      <column flex="2"/>
+    </columns>
+    <rows>
+      <row>
+        <image src="chrome://fingerprintprivacy/skin/logo.png" width="80" height="80"/>
+        <html:div class="message">
+          <html:div class="title"><html:b>Canvas fingerprinting detection</html:b></html:div>
+          This website <html:span id="website"></html:span>attempted to access image data on a canvas. Since canvas image data can be used to discover information about your computer, Fingerprint Privacy returned the original image data with some random noise added to it.
+        </html:div>
+      </row>
+    </rows>
+  </grid>
+
+</dialog>

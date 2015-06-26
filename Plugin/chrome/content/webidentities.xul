@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://fingerprintprivacy/content/webidentities.css" type="text/css"?>
+
+<dialog
+  title="Manage Web Identities"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept"
+  onload="onLoad()"
+  persist="screenX screenY width height"
+  windowtype="myDialogWindowType">
+
+  <script type="application/javascript" src="chrome://fingerprintprivacy/content/webidentities.js"/>
+  
+  <popupset>
+    <menupopup id="popupmenu">
+      <menuitem label="View Third-Parties" id="third-parties" accesskey="v" onclick="viewThirdParties()"/>
+      <menuitem label="Edit Attribute" id="edit" accesskey="e" onclick="editAttribute()"/>
+      <menuitem label="Delete" id="delete" accesskey="d" onclick="deleteWebIdentityAttribute()"/>
+      <menuitem label="Regenerate" id="regenerate" accesskey="r" onclick="regenerateWebIdentityAttribute()"/>
+      <!-- Debugging mode -->
+      <menuitem label="Hash: " id="hash" accesskey="h" style="color:lightgray"/>
+      <menuitem label="Usage amount: " id="usage-amount" accesskey="a" style="color:lightgray"/>
+      <menuitem label="Usage date: " id="usage-date" accesskey="u" style="color:lightgray"/>
+      <!--  -->
+    </menupopup>
+  </popupset>
+
+  <caption label="Web Identities"/>
+  <tree id="webIdentitiesTree" flex="1" hidecolumnpicker="true" seltype="single" class="tree" 
+        rows="10" width="400" context="popupmenu" oncontextmenu="showPopup()">
+    <treecols>
+      <treecol label="Attribute" primary="true" flex="2" persist="width" ordinal="1"/>
+      <splitter class="tree-splitter" ordinal="2"/>
+      <treecol label="Value" flex="2" persist="width" ordinal="3"/>
+      <splitter class="tree-splitter" ordinal="4"/>
+      <treecol label="Action" flex="1" persist="width" ordinal="5"/>
+    </treecols>
+    <treechildren id="webIdentitiesTreeChildren">
+    </treechildren>
+  </tree>
+  <grid>
+    <columns>
+      <column flex="1"/>
+      <column flex="2"/>
+    </columns>
+    <rows>
+      <row>
+        <button label="Clear Web Identities" oncommand="clearWebIdentities()"/>
+        <div id="number-of-web-identities"></div>
+      </row>
+      <!--<row>
+        <button label="Generate web identities" oncommand="generateWebIdentities()"/>
+        <div id="number-of-generations"></div>
+      </row>-->
+    </rows>
+  </grid>
+</dialog>

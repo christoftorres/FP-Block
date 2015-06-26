@@ -1,0 +1,54 @@
+{
+	"browser" : "chrome",
+	"os" : {
+		"win" : 0.89, 
+    "mac" : 0.09, 
+    "lin" : 0.02
+	},
+	"procs" : {
+		"win" : ["", "WOW64", "Win64; x64"],
+		"mac" : {"Intel" : 0.48, "PPC" : 0.01, "U; Intel" : 0.48, "U; PPC" : 0.01},
+    "lin" : ["i686", "x86_64"]
+	},
+	"versions" : {
+    "major" : {"min" : 13, "max" : 39},
+    "build" : {"min" : 800, "max" : 899},
+    "applewebkit" : {
+      "major" : {"min" : 531, "max" : 538},
+      "minor" : {"min" : 0, "max" : 2},
+      "build" : {"min" : 0, "max" : 2}
+    },
+    "nt" : {
+      "major" : {"min" : 5, "max" : 6},
+      "minor" : {"min" : 0, "max" : 3}
+    },
+    "osx" : {
+      "major" : {"min" : 5, "max" : 10},
+      "minor" : {"min" : 0, "max" : 9}
+    }
+  },
+	"screen" : {
+		"resolutions" : ["1366x768", "1024x768", "1280x800", "1920x1080", "1280x1024", "1440x900", "1600x900", "1680x1050", "1360x768"],
+		"colordepth" : [16, 24, 32],
+		"toolbar" : 42
+	},
+	"languages" : ["af", "sq", "ar-SA", "ar-IQ", "ar-EG", "ar-LY", "ar-DZ", "ar-MA", "ar-TN", "ar-OM", "ar-YE", "ar-SY", "ar-JO", "ar-LB", "ar-KW",
+                   "ar-AE", "ar-BH", "ar-QA", "eu", "bg", "be", "ca", "zh-TW", "zh-CN", "zh-HK", "zh-SG", "hr", "cs", "da", "nl", "nl-BE", "en", "en-US",
+                   "en-GB", "en-AU", "en-CA", "en-NZ", "en-IE", "en-ZA", "en-JM", "en-BZ", "en-TT", "et", "fo", "fa", "fi", "fr", "fr-BE", "fr-CA", 
+                   "fr-CH", "fr-LU", "gd", "gd-IE", "de", "de-CH", "de-AT", "de-LU", "de-LI", "el", "he", "hi", "hu", "is", "id", "it", "it-CH", "ja",
+                   "ko", "lv", "lt", "mk", "ms", "mt", "no", "pl", "pt-BR", "pt-PT", "rm", "ro", "ro-MO", "ru", "ru-MO", "sz", "sr", "sk", "sl", "sb",
+                   "es", "es-AR", "es-GT", "es-CR", "es-PA", "es-DO", "es-MX", "es-VE", "es-CO", "es-PE", "es-EC", "es-CL", "es-UY", "es-PY", "es-BO",
+                   "es-SV", "es-HN", "es-NI", "es-PR", "sx", "sv", "sv-FI", "th", "ts", "tn", "tr", "uk", "ur", "ve", "vi", "xh", "ji", "zu"],
+    "http" : {
+    	"order" : ["Host", "Accept", "User-Agent", "Accept-Encoding", "Accept-Language"],
+    	"encoding" : "gzip,deflate,sdch"
+    },
+    "timezones" : [-720, -660, -600, -570, -540, -480, -420, -360, -300, -270,
+                   -240, -210, -180, -120,  -60,    0,   60,  120,  180,  210,
+                    240,  270,  300,  330,  345,  360,  390,  420,  480,  525,
+                    540,  570,  600,  630,  660,  690,  720,  765,  780,  840],
+    "appcodename" : "Mozilla",
+    "appname" : "Netscape",
+    "product" : "Gecko",
+    "vendor" : "Google Inc."
+}

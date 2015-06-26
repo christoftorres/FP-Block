@@ -1,0 +1,229 @@
+/****************************************************************/
+/* -- Fingerprint Privacy --                                    */
+/* Author: Christof Ferreira Torres                             */
+/* Date: 06.06.2014                                             */
+/****************************************************************/
+
+#fingerprint-privacy-toolbar-button,
+window:not([active="true"]) #fingerprint-privacy-toolbar-button,
+toolbar[iconsize="small"] #fingerprint-privacy-toolbar-button {
+    list-style-image: url("chrome://fingerprintprivacy/skin/toolbar-icon.png");
+}
+
+#fingerprint-privacy-toolbar-button .toolbarbutton-icon,
+window:not([active="true"]) #fingerprint-privacy-toolbar-button .toolbarbutton-icon,
+toolbar[iconsize="small"] #fingerprint-privacy-toolbar-button .toolbarbutton-icon {
+    filter: none;
+    opacity: 1.0;
+}
+
+#fingerprint-privacy-toolbar-button[fingerprintprivacyActivated="false"] .toolbarbutton-icon,
+window:not([active="true"]) #fingerprint-privacy-toolbar-button[fingerprintprivacyActivated="false"] .toolbarbutton-icon,
+toolbar[iconsize="small"] #fingerprint-privacy-toolbar-button[fingerprintprivacyActivated="false"] .toolbarbutton-icon {
+    filter: url("chrome://mozapps/skin/extensions/extensions.svg#greyscale");
+    opacity: 0.5;
+}
+
+#fingerprint-privacy-toolbar-button .toolbarbutton-icon {
+    margin: 0px !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#fingerprint-privacy-toolbar-button .toolbarbutton-menu-dropmarker { 
+	display: none; 
+}
+
+#fingerprintprivacy-popup { 
+	width: 206px;
+	height: 276px; 
+    font-size: 11px;
+	position: relative;
+    background-color: #FFFFFF;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#title {
+	color: #2FCCFF;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: bold;
+	font-size: 13px;
+	padding: 0px 5px 0px 5px;
+	width: 130px;
+}
+
+#domain {
+    color: #A1A1A1;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0px 5px 0px 5px;
+}
+
+#private-browsing {
+    width: 28px;
+    height: 20px;
+    padding-top: 8px;
+    text-align: center;
+}
+
+#settings {
+	width: 28px;
+    height: 28px;
+    cursor: pointer;
+	text-align: center;
+}
+
+.caption {
+    color: #A1A1A1;
+    font-weight: bold;
+    padding: 5px 5px 5px 5px;
+}
+
+#social-plugins {
+	height: 60px;
+	border-top: 1px solid #A1A1A1;
+}
+
+#social-plugins-table {
+    text-align: center;
+}
+
+.plugins-logo {
+    padding: 2px; 
+    text-align: center;
+}
+
+.button {
+    width: 28px;
+    height: 28px;
+    cursor: pointer; 
+}
+
+#summary {
+    border-top: 1px solid #A1A1A1;
+}
+
+.summary-list-item {
+    color: #A1A1A1;
+    cursor: pointer;
+}
+
+.summary-list-item-label {
+    width: 130px;
+    padding-left: 10px;
+}
+
+.summary-list-item-number {
+    width: 40px;
+    text-align: right;
+}
+
+#attribute-list {
+    display: none;
+}
+
+.attribute-checkbox {
+	margin-left: 15px;
+}
+
+.attribute-label {
+    color: #A1A1A1;
+    padding-left: 10px;
+}
+
+#third-parties-list {
+    display: none;
+}
+
+.third-party-checkbox {
+    margin-left: 15px;
+}
+
+.third-party-label {
+    color: #A1A1A1;
+    padding-left: 10px;
+}
+
+#browser-plugins {
+    border-top: 1px solid #A1A1A1;
+}
+
+#browser-plugins-table {
+    text-align: center;
+}
+
+#domain-error {
+    width: 206px;
+    display: none;
+    color: #A1A1A1;
+    font-size: 12px;
+    padding-top: 60px;
+    text-align: center;
+    text-decoration: bold;
+    border-top: 1px solid #A1A1A1;   
+}
+
+#website-switch {
+    padding: 8px 20px 0px 20px;
+    border-top: 1px solid #A1A1A1;   
+}
+
+.error-message {
+    color: #A1A1A1;
+}
+
+/***********************************/
+/* On/Off FlipSwitch from Proto.io */
+/* http://proto.io/freebies/onoff/ */
+/***********************************/
+
+    .onoffswitch {
+    position: relative; width: 167px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+    display: none;
+    }
+    .onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #FFFFFF; border-radius: 26px;
+    }
+    .onoffswitch-inner {
+    width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+    float: left; width: 50%; height: 28px; padding: 0; line-height: 28px;
+    font-size: 11px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+    content: "Disable for this website";
+    padding-left: 9px;
+    background-color: #EEEEEE; color: #2FCCFF;
+    }
+    .onoffswitch-inner:after {
+    content: "Enable for this website";
+    padding-right: 9px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+    }
+    .onoffswitch-switch {
+    width: 19px; margin: 4.5px;
+    background: #A1A1A1;
+    border: 2px solid #FFFFFF; border-radius: 26px;
+    position: absolute; top: 0; bottom: 0; right: 135px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+    background-color: #2FCCFF;
+    }

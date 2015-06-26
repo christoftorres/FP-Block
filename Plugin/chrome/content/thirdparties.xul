@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<dialog
+  title="View Third-Parties"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept"
+  onload="onLoad()"
+  ondialogaccept="accept()"
+  persist="screenX screenY width height"
+  windowtype="myDialogWindowType">
+
+  <script type="application/javascript" src="chrome://fingerprintprivacy/content/thirdparties.js"/>
+  
+  <grid>
+    <columns>
+      <column flex="1"/>
+    </columns>
+    <rows>
+      <row>
+        <grid>
+          <columns>
+            <column flex="1"/>
+            <column flex="2"/>
+          </columns>
+          <rows>
+            <row>
+              <label value="Domain:"/>
+              <label style="font-weight: bold;" id="domain-name"/>
+            </row>
+            <row>
+              <label value="Third-Parties:"/>
+              <label style="font-weight: bold;" id="thirdparties-number"/>
+            </row>
+          </rows>
+        </grid>
+      </row>
+      <row>
+        <richlistbox id="richlistbox-third-parties" height="100px" width="200px"/>
+      </row>
+    </rows>
+  </grid>
+</dialog>

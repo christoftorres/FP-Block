@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+     
+    <Description about="urn:mozilla:install-manifest">
+    	
+        <!-- Required Items -->
+		
+        <em:id>fingerprintprivacy@fingerprint.christoftorres.com</em:id>
+        <em:version>1.0.0</em:version>
+		<em:type>2</em:type>
+        <em:unpack>true</em:unpack>
+		
+		<em:optionsURL>chrome://fingerprintprivacy/content/options.xul</em:optionsURL>
+		
+		<!-- Front End Metadata -->
+		
+		<em:name>FingerPrint-Block</em:name>
+		<em:description>FingerPrint-Block helps you to preserve privacy on the web with respect to browser fingerptinting. FingerPrint-Block aims to keep your web identities seperate through creating unique web identites for each website you visit. It allows you to block social plugins and to block individual browser plugins. Furthermore, it allows you to detect third-parties and to block, allow or spoof JavaScript attributes that a website tries to read. Please note that FingerPrint-Block is solely a proof-of-concept.</em:description>
+		<em:creator>Christof Torres</em:creator>
+		<em:homepageURL>http://fingerprint.christoftorres.com</em:homepageURL>
+		<em:iconURL>chrome://fingerprintprivacy/skin/icon32.png</em:iconURL>
+		<em:icon64URL>chrome://fingerprintprivacy/skin/icon64.png</em:icon64URL>
+		
+		<!-- Describe the Firefox versions we support -->
+		
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>4.0</em:minVersion>
+                <em:maxVersion>16.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+
+    </Description>
+</RDF>
