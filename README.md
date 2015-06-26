@@ -9,14 +9,14 @@ This program is provided "AS IS", without any warranties of any kind, either exp
 Installation instructions
 =========================
 
-1. Compile the source
+Compile the source
 
 In order to "compile" the source code to a FireFox extension, you need to
 use the following command inside the fingerprintprivacy folder:
 
 	zip -r ../fingerprintprivacy.xpi *
 
-2. Install the plugin
+Install the plugin
 
 To install the plugin, just drag and drop the fingerprintprivacy.xpi
 file onto FireFox. A popup window will appear asking to install. Click
