@@ -26,8 +26,11 @@ In order to "compile" the source code to a Firefox extension, you only need to
 run the file "Makefile" or manually run the following command inside the console:
 
 Mac
+
 	zip -r ../fingerprintprivacy.xpi * -x *.DS Store*
+	
 Linux
+
 	zip -r ../fingerprintprivacy.xpi *
 
 Install the plugin
