@@ -9,6 +9,9 @@ This program is provided "AS IS", without any warranties of any kind, either exp
 Installation instructions
 =========================
 
+1. Compile the source
+2. Install the plugin
+
 Compile the source
 ------------------
 
@@ -18,6 +21,7 @@ use the following command inside the fingerprintprivacy folder:
 	zip -r ../fingerprintprivacy.xpi *
 
 Install the plugin
+------------------
 
 To install the plugin, just drag and drop the fingerprintprivacy.xpi
 file onto FireFox. A popup window will appear asking to install. Click
