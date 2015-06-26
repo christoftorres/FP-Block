@@ -15,7 +15,7 @@ Installation instructions
 Compile the source
 ------------------
 
-In order to "compile" the source code to a FireFox extension, you need to
+In order to "compile" the source code to a Firefox extension, you need to
 use the following command inside the plugin folder:
 
 	zip -r ../FP-Block.xpi *
