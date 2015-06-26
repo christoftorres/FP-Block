@@ -16,9 +16,18 @@ Installation instructions
 Compile the source
 ------------------
 
+Windows:
+
+Select the "Plugin" folder, do a right-click and choose: Send To -> Compressed (Zipped) Folder. Afterwards you simply rename the resulting ZIP file to .xpi instead of .zip. Done!
+
+Mac & Linux:
+
 In order to "compile" the source code to a Firefox extension, you only need to
 run the file "Makefile" or manually run the following command inside the console:
 
+Mac
+	zip -r ../fingerprintprivacy.xpi * -x *.DS Store*
+Linux
 	zip -r ../fingerprintprivacy.xpi *
 
 Install the plugin
