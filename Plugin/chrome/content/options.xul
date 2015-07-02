@@ -2,7 +2,7 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
  
 <prefwindow 
-     title="FingerPrint-Block Preferences"
+     title="FP-Block Preferences"
      xmlns:html="http://www.w3.org/1999/xhtml"
      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -45,16 +45,16 @@
 	    }
 	</html:style>
 
-	<prefpane label="FingerPrint-Block Preferences">
+	<prefpane label="FP-Block Preferences">
 		<preferences>
-			<preference id="fingerprint-privacy-notify-detections" name="extensions.fingerprintprivacy.notifydetections" type="bool"/>
-			<preference id="fingerprint-privacy-block-thirdparties" name="extensions.fingerprintprivacy.blockthirdparties" type="bool"/>
-			<!--<preference id="fingerprint-privacy-delete-referer" name="extensions.fingerprintprivacy.deletereferer" type="bool"/>-->
-			<preference id="fingerprint-privacy-dnt-header" name="extensions.fingerprintprivacy.dntheader" type="bool"/>
-			<preference id="fingerprint-privacy-delete-etags" name="extensions.fingerprintprivacy.deleteetags" type="bool"/>
-			<preference id="fingerprint-privacy-autoblock-social" name="extensions.fingerprintprivacy.autoblocksocial" type="bool"/>
-			<preference id="fingerprint-privacy-autoblock-plugins" name="extensions.fingerprintprivacy.autoblockplugins" type="bool"/>
-			<preference id="fingerprint-privacy-debugging-mode" name="extensions.fingerprintprivacy.debuggingmode" type="bool"/>
+			<preference id="fp-block-notify-detections" name="extensions.fpblock.notifydetections" type="bool"/>
+			<preference id="fp-block-block-thirdparties" name="extensions.fpblock.blockthirdparties" type="bool"/>
+			<!--<preference id="fp-block-delete-referer" name="extensions.fpblock.deletereferer" type="bool"/>-->
+			<preference id="fp-block-dnt-header" name="extensions.fpblock.dntheader" type="bool"/>
+			<preference id="fp-block-delete-etags" name="extensions.fpblock.deleteetags" type="bool"/>
+			<preference id="fp-block-autoblock-social" name="extensions.fpblock.autoblocksocial" type="bool"/>
+			<preference id="fp-block-autoblock-plugins" name="extensions.fpblock.autoblockplugins" type="bool"/>
+			<preference id="fp-block-debugging-mode" name="extensions.fpblock.debuggingmode" type="bool"/>
 		</preferences>
 
 		<script>
@@ -62,11 +62,11 @@
 			window.onload = function() {
 				getAddonNameVer(function(addon) {
 		            document.getElementById('version').value = addon.name + " " + addon.version;
-		            var fingerprintprivacypreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
-		            if (fingerprintprivacypreferences.getCharPref('latestfetch') == '') {
+		            var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
+		            if (fpblockpreferences.getCharPref('latestfetch') == '') {
 		            	document.getElementById('latest-fetch').value = "Last time fetched: never";
 		            } else {
-		            	var latestfetch = new Date(parseInt(fingerprintprivacypreferences.getCharPref('latestfetch')));
+		            	var latestfetch = new Date(parseInt(fpblockpreferences.getCharPref('latestfetch')));
 		    			var day = (String(latestfetch.getDate()).length == 1) ? "0" + latestfetch.getDate() : latestfetch.getDate();
 		    			var month = (String(latestfetch.getMonth() + 1).length == 1) ? "0" + (latestfetch.getMonth() + 1) : latestfetch.getMonth() + 1;
 		    			var year = latestfetch.getFullYear();
@@ -80,12 +80,12 @@
 		    
 		    function getAddonNameVer(callback) {
 		        Components.utils.import("resource://gre/modules/AddonManager.jsm");
-		        AddonManager.getAddonByID('fingerprintprivacy@fingerprint.christoftorres.com', callback);
+		        AddonManager.getAddonByID('fpblock@fingerprint.christoftorres.com', callback);
 		    }
 
 		    function blockThirdParties() {
-		    	var fingerprintprivacypreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
-		    	var cookieBehaviour = !fingerprintprivacypreferences.getBoolPref('blockthirdparties');
+		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
+		    	var cookieBehaviour = !fpblockpreferences.getBoolPref('blockthirdparties');
 		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.cookie.');
 		    	if (cookieBehaviour) {
 		    		firefoxpreferences.setIntPref('cookieBehavior', 1);
@@ -95,8 +95,8 @@
 		    }
 
 		    function setDNTHeader() {
-		    	var fingerprintprivacypreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
-		    	var enabled = !fingerprintprivacypreferences.getBoolPref('dntheader');
+		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
+		    	var enabled = !fpblockpreferences.getBoolPref('dntheader');
 		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('privacy.donottrackheader.');
 		    	firefoxpreferences.setBoolPref('enabled', enabled);
 		    	if (enabled) {
@@ -107,19 +107,19 @@
 		    }
 
 		    function resetDefaultSettings() {
-		    	var fingerprintprivacypreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
 		    	// General preferences
-		    	fingerprintprivacypreferences.setBoolPref('notifydetections', true);
+		    	fpblockpreferences.setBoolPref('notifydetections', true);
 		    	// HTTP preferences
-		    	fingerprintprivacypreferences.setBoolPref('blockthirdparties', true);
-		    	//fingerprintprivacypreferences.setBoolPref('deletereferer', true);
-		    	fingerprintprivacypreferences.setBoolPref('dntheader', true);
-		    	fingerprintprivacypreferences.setBoolPref('deleteetags', true);
+		    	fpblockpreferences.setBoolPref('blockthirdparties', true);
+		    	//fpblockpreferences.setBoolPref('deletereferer', true);
+		    	fpblockpreferences.setBoolPref('dntheader', true);
+		    	fpblockpreferences.setBoolPref('deleteetags', true);
 		    	// JavaScript preferences
-		    	fingerprintprivacypreferences.setBoolPref('autoblocksocial', false);
-		    	fingerprintprivacypreferences.setBoolPref('autoblockplugins', true);
+		    	fpblockpreferences.setBoolPref('autoblocksocial', false);
+		    	fpblockpreferences.setBoolPref('autoblockplugins', true);
 		    	// Debugging mode
-		    	fingerprintprivacypreferences.setBoolPref('debuggingmode', false);
+		    	fpblockpreferences.setBoolPref('debuggingmode', false);
 
 		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.cookie.');
 		    	firefoxpreferences.setIntPref('cookieBehavior', 1);
@@ -147,9 +147,9 @@
 			        			xmlhttp.open("POST", path+files[index], true);
 			        			xmlhttp.send();
 			      			} else {
-			      				var fingerprintprivacypreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
-				    			fingerprintprivacypreferences.setCharPref('latestfetch', new Date().getTime());
-				    			var latestfetch = new Date(parseInt(fingerprintprivacypreferences.getCharPref('latestfetch')));
+			      				var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
+				    			fpblockpreferences.setCharPref('latestfetch', new Date().getTime());
+				    			var latestfetch = new Date(parseInt(fpblockpreferences.getCharPref('latestfetch')));
 				    			var day = (String(latestfetch.getDate()).length == 1) ? "0" + latestfetch.getDate() : latestfetch.getDate();
 				    			var month = (String(latestfetch.getMonth() + 1).length == 1) ? "0" + (latestfetch.getMonth() + 1) : latestfetch.getMonth() + 1;
 				    			var year = latestfetch.getFullYear();
@@ -168,7 +168,7 @@
 		    
 		</script>
 
-		<tabbox id="FingerprintPrivacyPreferences">
+		<tabbox id="FPBlockPreferences">
 			<tabs>
 			    <tab label="About"/>
 			    <tab label="General Settings"/>
@@ -186,11 +186,11 @@
 							<rows>
 								<row>
 									<html:div class="about-info-left">
-										<image src='chrome://fingerprintprivacy/skin/logo.png' width='128' height='128'/>
+										<image src='chrome://fpblock/skin/logo.png' width='128' height='128'/>
 						        		<label id="version" class="addon-version" value="Loading version..."/>
 						        	</html:div>
 						        	<html:div class="about-info-right">
-						            	FingerPrint-Block helps you to preserve privacy on the web with respect to browser fingerptinting. FingerPrint-Block aims to keep your web identities seperate through creating unique web identites for each website you visit.<html:br/><html:br/>It allows you to block social plugins and to block individual browser plugins. Furthermore, it allows you to detect third-parties and to block, allow or spoof JavaScript attributes that a website tries to read. Please note that FingerPrint-Block is solely a proof-of-concept.
+						            	FP-Block helps you to preserve privacy on the web with respect to browser fingerptinting. FP-Block aims to keep your web identities seperate through creating unique web identites for each website you visit.<html:br/><html:br/>It allows you to block social plugins and to block individual browser plugins. Furthermore, it allows you to detect third-parties and to block, allow or spoof JavaScript attributes that a website tries to read. Please note that FP-Block is solely a proof-of-concept.
 						          	</html:div>
 								</row>
 							</rows>
@@ -218,7 +218,7 @@
 								<label value="Manage individual web identities and their attributes:"/>
 							</row>
 							<row>
-								<button label="Manage Web Identities" oncommand='window.openDialog("chrome://fingerprintprivacy/content/webidentities.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes").focus();'/>
+								<button label="Manage Web Identities" oncommand='window.openDialog("chrome://fpblock/content/webidentities.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes").focus();'/>
 							</row>
 							<grid>
 								<columns>
@@ -229,12 +229,12 @@
 									<row>
 										<button label="Fetch Latest Profiles" oncommand="fetchLatestProfiles()"/>
 										<label id="latest-fetch" value="Last time fetched: " style="margin-top: 7px"/>
-        								<image id="ajax-loader" src="chrome://fingerprintprivacy/skin/ajax-loader.gif" width="18px" height="12px" style="visibility:hidden;margin:4px 10px 4px 10px"/>
+        								<image id="ajax-loader" src="chrome://fpblock/skin/ajax-loader.gif" width="18px" height="12px" style="visibility:hidden;margin:4px 10px 4px 10px"/>
 									</row>
 								</rows>
 							</grid>
 							<row>
-								<checkbox id="notify-detections" preference="fingerprint-privacy-notify-detections" label="Show a notification when a website is trying to read browser fingerprinting related attributes"/>
+								<checkbox id="notify-detections" preference="fp-block-notify-detections" label="Show a notification when a website is trying to read browser fingerprinting related attributes"/>
 							</row>
 						</rows>
 					</grid>
@@ -246,20 +246,20 @@
 							</columns>
 							<rows>
 								<row>
-									<checkbox class="checkbox" id="block-thirdparties" preference="fingerprint-privacy-block-thirdparties" label="Block third-party cookies" oncommand="blockThirdParties();"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Block websites from storing third-party cookies."/>
+									<checkbox class="checkbox" id="block-thirdparties" preference="fp-block-block-thirdparties" label="Block third-party cookies" oncommand="blockThirdParties();"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Block websites from storing third-party cookies."/>
 								</row>
 								<!--<row>
-									<checkbox class="checkbox" id="delete-referer" preference="fingerprint-privacy-delete-referer" label="Remove HTTP Referer header"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Remove the HTTP Referer header from cross-domain requests."/>
+									<checkbox class="checkbox" id="delete-referer" preference="fp-block-delete-referer" label="Remove HTTP Referer header"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Remove the HTTP Referer header from cross-domain requests."/>
 								</row>-->
 								<row>
-									<checkbox class="checkbox" id="dnt-header" preference="fingerprint-privacy-dnt-header" label="Send DNT (Do Not Track) header" oncommand="setDNTHeader();"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Send the DNT (Do Not Track) header up on every request."/>
+									<checkbox class="checkbox" id="dnt-header" preference="fp-block-dnt-header" label="Send DNT (Do Not Track) header" oncommand="setDNTHeader();"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Send the DNT (Do Not Track) header up on every request."/>
 								</row>
 								<row>
-									<checkbox class="checkbox" id="delete-etags" preference="fingerprint-privacy-delete-etags" label="Remove HTTP ETag headers"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Remove all possible HTTP ETag headers from every request."/>
+									<checkbox class="checkbox" id="delete-etags" preference="fp-block-delete-etags" label="Remove HTTP ETag headers"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Remove all possible HTTP ETag headers from every request."/>
 								</row>
 							</rows>
 						</grid>
@@ -272,12 +272,12 @@
 							</columns>
 							<rows>
 								<row>
-									<checkbox class="checkbox" id="autoblock-social" preference="fingerprint-privacy-autoblock-social" label="Automatically block social plugins"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Automatically block from websites all known social plugins e.g. Facebook, Twitter, Google+, LinkedIn, Tumblr and Pinterest."/>
+									<checkbox class="checkbox" id="autoblock-social" preference="fp-block-autoblock-social" label="Automatically block social plugins"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Automatically block from websites all known social plugins e.g. Facebook, Twitter, Google+, LinkedIn, Tumblr and Pinterest."/>
 								</row>
 								<row>
-									<checkbox class="checkbox" id="block-plugins" preference="fingerprint-privacy-autoblock-plugins" label="Automatically block browser plugins"/>
-									<image src='chrome://fingerprintprivacy/skin/help.png' width='28' height='28' tooltiptext="Automatically block from websites all browser plugins e.g Flash Player, QuickTime Player, VLC Player, etc."/>
+									<checkbox class="checkbox" id="block-plugins" preference="fp-block-autoblock-plugins" label="Automatically block browser plugins"/>
+									<image src='chrome://fpblock/skin/help.png' width='28' height='28' tooltiptext="Automatically block from websites all browser plugins e.g Flash Player, QuickTime Player, VLC Player, etc."/>
 								</row>
 							</rows>
 						</grid>
@@ -291,7 +291,7 @@
 								<button label="Reset Default Settings" oncommand='resetDefaultSettings();'/>
 							</row>
 							<row>
-								<checkbox class="checkbox" id="debugging-mode" preference="fingerprint-privacy-debugging-mode" label="Enable debugging mode (advanced users)"/>
+								<checkbox class="checkbox" id="debugging-mode" preference="fp-block-debugging-mode" label="Enable debugging mode (advanced users)"/>
 							</row>
 						</rows>
 					</grid>

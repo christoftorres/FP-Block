@@ -1,10 +1,10 @@
-content     fingerprintprivacy    chrome/content/
-content     fingerprintprivacy    chrome/content/ contentaccessible=yes
+content     fpblock    chrome/content/
+content     fpblock    chrome/content/ contentaccessible=yes
 resource     modules    modules/
 resource     profiles    profiles/
-overlay chrome://browser/content/browser.xul chrome://fingerprintprivacy/content/browser.xul
+overlay chrome://browser/content/browser.xul chrome://fpblock/content/browser.xul
 
-locale	fingerprintprivacy	en-US	locale/en-US/
+locale	fpblock	en-US	locale/en-US/
 
-skin	fingerprintprivacy	classic/1.0	skin/
-style	chrome://global/content/customizeToolbar.xul	chrome://fingerprintprivacy/skin/skin.css
+skin	fpblock	classic/1.0	skin/
+style	chrome://global/content/customizeToolbar.xul	chrome://fpblock/skin/skin.css

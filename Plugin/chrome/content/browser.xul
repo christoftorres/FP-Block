@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://fingerprintprivacy/skin/skin.css" type="text/css"?> 
-<!DOCTYPE fingerprintprivacy SYSTEM "chrome://fingerprintprivacy/locale/translations.dtd">
-<overlay id="fingerprintprivacy" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
-		<script type="application/x-javascript" src="chrome://fingerprintprivacy/content/overlay.js"/>
+<?xml-stylesheet href="chrome://fpblock/skin/skin.css" type="text/css"?> 
+<!DOCTYPE fpblock SYSTEM "chrome://fpblock/locale/translations.dtd">
+<overlay id="fpblock" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+		<script type="application/x-javascript" src="chrome://fpblock/content/overlay.js"/>
 		<!--Tools menu -->
 		<!--<menupopup id="menu-tools-popup"> 
-			<menuitem label="&fingerprintprivacy;" key="fingerprint-privacy-key" oncommand="fingerprintPrivacy.toggle();"/> 
+			<menuitem label="&fpblock;" key="fp-block-key" oncommand="fpBlock.toggle();"/> 
 		</menupopup>-->
 		<!-- Keyset -->
 		<!--<keyset>
-			<key id="fingerprint-privacy-key" modifiers="accel alt shift" key="F" oncommand="fingerprintPrivacy.toggle();"/>
+			<key id="fp-block-key" modifiers="accel alt shift" key="F" oncommand="fpBlock.toggle();"/>
 		</keyset>-->
 		<!-- Toolbar -->
 		<toolbarpalette id="BrowserToolbarPalette">
-			<toolbarbutton id="fingerprint-privacy-toolbar-button" class="toolbarbutton-1" type="menu" label="FingerPrint-Block" tooltiptext="FingerPrint-Block" onclick="fingerprintPrivacy.showPopupMenu();">
+			<toolbarbutton id="fp-block-toolbar-button" class="toolbarbutton-1" type="menu" label="FP-Block" tooltiptext="FP-Block" onclick="fpBlock.showPopupMenu();">
 				<menupopup>
-					<html:div id="fingerprintprivacy-popup">
+					<html:div id="fpblock-popup">
 		          		<html:table>
               				<html:tr>
                 				<html:td>
@@ -23,14 +23,14 @@
                 						<html:tr>
                 							<html:td>
 			            						<html:div id="title">
-			                						FingerPrint-Block
+			                						FP-Block
 			                					</html:div>
 			                				</html:td>
 			                				<html:td rowspan="2" id="private-browsing">
 			            						
 			            					</html:td>
 			                				<html:td rowspan="2">
-			            						<image src='chrome://fingerprintprivacy/skin/settings.png' tooltiptext="Settings" id="settings" onclick="fingerprintPrivacy.openPreferences();"/>
+			            						<image src='chrome://fpblock/skin/settings.png' tooltiptext="Settings" id="settings" onclick="fpBlock.openPreferences();"/>
 			            					</html:td>
 			            				</html:tr>
 			            				<html:tr>
@@ -63,10 +63,10 @@
     									</html:div>
     									<html:div id="summary-list">
     										<html:table>
-												<html:tr class="summary-list-item" onclick="fingerprintPrivacy.toggleAttributes();" alt="Click to view requested attributes">
+												<html:tr class="summary-list-item" onclick="fpBlock.toggleAttributes();" alt="Click to view requested attributes">
 													<html:td class="summary-list-item-label">Requested attributes:</html:td>
 													<html:td class="summary-list-item-number" id="detected-attributes"></html:td>
-													<html:td><image src="chrome://fingerprintprivacy/skin/collapsed.png" id="arrow-attributes"/></html:td>
+													<html:td><image src="chrome://fpblock/skin/collapsed.png" id="arrow-attributes"/></html:td>
 												</html:tr>
 												<html:tr>
 													<html:td colspan="3">
@@ -87,10 +87,10 @@
 				    								</html:div>
 				    								</html:td>
 				    							</html:tr>
-												<html:tr class="summary-list-item" onclick="fingerprintPrivacy.toggleThirdParties();" alt="Click to view third-parties">
+												<html:tr class="summary-list-item" onclick="fpBlock.toggleThirdParties();" alt="Click to view third-parties">
 													<html:td class="summary-list-item-label">Third-parties:</html:td>
 													<html:td class="summary-list-item-number" id="detected-third-parties"></html:td>
-													<html:td><image src="chrome://fingerprintprivacy/skin/collapsed.png" id="arrow-third-parties"/></html:td>
+													<html:td><image src="chrome://fpblock/skin/collapsed.png" id="arrow-third-parties"/></html:td>
 												</html:tr>
 												<html:tr>
 													<html:td colspan="3">
@@ -132,7 +132,7 @@
                 				<html:td>
 	            					<html:div id="website-switch">
             						    <html:div class="onoffswitch">
-									    	<html:input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="websiteonoffswitch" onclick="fingerprintPrivacy.toggleWebsite();"/>
+									    	<html:input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="websiteonoffswitch" onclick="fpBlock.toggleWebsite();"/>
 									    	<html:label class="onoffswitch-label" for="websiteonoffswitch">
 									    		<html:div class="onoffswitch-inner"></html:div>
 									    		<html:div class="onoffswitch-switch"></html:div>

@@ -7,21 +7,21 @@
     	
         <!-- Required Items -->
 		
-        <em:id>fingerprintprivacy@fingerprint.christoftorres.com</em:id>
-        <em:version>1.0.0</em:version>
+        <em:id>fpblock@fingerprint.christoftorres.com</em:id>
+        <em:version>1.0.1</em:version>
 		<em:type>2</em:type>
         <em:unpack>true</em:unpack>
 		
-		<em:optionsURL>chrome://fingerprintprivacy/content/options.xul</em:optionsURL>
+		<em:optionsURL>chrome://fpblock/content/options.xul</em:optionsURL>
 		
 		<!-- Front End Metadata -->
 		
-		<em:name>FingerPrint-Block</em:name>
-		<em:description>FingerPrint-Block helps you to preserve privacy on the web with respect to browser fingerptinting. FingerPrint-Block aims to keep your web identities seperate through creating unique web identites for each website you visit. It allows you to block social plugins and to block individual browser plugins. Furthermore, it allows you to detect third-parties and to block, allow or spoof JavaScript attributes that a website tries to read. Please note that FingerPrint-Block is solely a proof-of-concept.</em:description>
+		<em:name>FP-Block</em:name>
+		<em:description>FP-Block helps you to preserve privacy on the web with respect to browser fingerptinting. FP-Block aims to keep your web identities seperate through creating unique web identites for each website you visit. It allows you to block social plugins and to block individual browser plugins. Furthermore, it allows you to detect third-parties and to block, allow or spoof JavaScript attributes that a website tries to read. Please note that FP-Block is solely a proof-of-concept.</em:description>
 		<em:creator>Christof Torres</em:creator>
-		<em:homepageURL>http://fingerprint.christoftorres.com</em:homepageURL>
-		<em:iconURL>chrome://fingerprintprivacy/skin/icon32.png</em:iconURL>
-		<em:icon64URL>chrome://fingerprintprivacy/skin/icon64.png</em:icon64URL>
+		<em:homepageURL>http://www.open.ou.nl/hjo/software/fp-block/</em:homepageURL>
+		<em:iconURL>chrome://fpblock/skin/icon32.png</em:iconURL>
+		<em:icon64URL>chrome://fpblock/skin/icon64.png</em:icon64URL>
 		
 		<!-- Describe the Firefox versions we support -->
 		

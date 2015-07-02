@@ -11,7 +11,7 @@
   persist="screenX screenY width height"
   windowtype="myDialogWindowType">
 
-  <script type="application/javascript" src="chrome://fingerprintprivacy/content/thirdparties.js"/>
+  <script type="application/javascript" src="chrome://fpblock/content/thirdparties.js"/>
   
   <grid>
     <columns>

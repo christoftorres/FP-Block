@@ -1,27 +1,27 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 13.02.2015                                             */
 /****************************************************************/
 
 // First run
-pref("extensions.fingerprintprivacy.firstrun", true);
+pref("extensions.fpblock.firstrun", true);
 // Genreal preferences
-pref("extensions.fingerprintprivacy.notifydetections", true);
+pref("extensions.fpblock.notifydetections", true);
 // HTTP preferences
-pref("extensions.fingerprintprivacy.blockthirdparties", true);
-//pref("extensions.fingerprintprivacy.deletereferer", true);
-pref("extensions.fingerprintprivacy.dntheader", true);
-pref("extensions.fingerprintprivacy.deleteetags", true);
+pref("extensions.fpblock.blockthirdparties", true);
+//pref("extensions.fpblock.deletereferer", true);
+pref("extensions.fpblock.dntheader", true);
+pref("extensions.fpblock.deleteetags", true);
 // JavaScript preferences
-pref("extensions.fingerprintprivacy.autoblocksocial", false);
-pref("extensions.fingerprintprivacy.autoblockplugins", true);
+pref("extensions.fpblock.autoblocksocial", false);
+pref("extensions.fpblock.autoblockplugins", true);
 // Data storage
-pref("extensions.fingerprintprivacy.webidentities", "[]");
-pref("extensions.fingerprintprivacy.detections", "[]");
+pref("extensions.fpblock.webidentities", "[]");
+pref("extensions.fpblock.detections", "[]");
 // Limit of generated unique web identities
-pref("extensions.fingerprintprivacy.webidentitieslimit", 1024);
+pref("extensions.fpblock.webidentitieslimit", 1024);
 // Date of last time that profiles were fetched
-pref("extensions.fingerprintprivacy.latestfetch", "");
+pref("extensions.fpblock.latestfetch", "");
 // Debugging mode
-pref("extensions.fingerprintprivacy.debuggingmode", false);
+pref("extensions.fpblock.debuggingmode", false);

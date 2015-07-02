@@ -35,10 +35,14 @@
     </columns>
     <rows>
       <row>
-        <image src="chrome://fingerprintprivacy/skin/logo.png" width="80" height="80"/>
+        <image src="chrome://fpblock/skin/logo.png" width="80" height="80"/>
         <html:div class="message">
           <html:div class="title"><html:b>Canvas fingerprinting detection</html:b></html:div>
-          This website <html:span id="website"></html:span>attempted to access image data on a canvas. Since canvas image data can be used to discover information about your computer, Fingerprint Privacy returned the original image data with some random noise added to it.
+          This website <html:span id="website"></html:span>attempted to
+	  access image data on a canvas. Since canvas image data can be
+	  used to discover information about your computer, FP-Block
+	  returned the original image data with some random noise added
+	  to it.
         </html:div>
       </row>
     </rows>

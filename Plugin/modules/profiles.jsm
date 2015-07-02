@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 14.12.2014                                             */
 /****************************************************************/
@@ -12,7 +12,7 @@ var EXPORTED_SYMBOLS = ["profiles"];
 
 var profiles = [];
 
-AddonManager.getAddonByID("fingerprintprivacy@fingerprint.christoftorres.com", function(addon) {
+AddonManager.getAddonByID("fpblock@fingerprint.christoftorres.com", function(addon) {
 	var uri = addon.getResourceURI("/profiles");
 	if (uri instanceof Components.interfaces.nsIFileURL) {
 		var entries = uri.file.directoryEntries;

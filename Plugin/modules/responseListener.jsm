@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 15.04.2015                                             */
 /****************************************************************/
@@ -109,7 +109,7 @@ responseListener.prototype = {
 
             if (webID && webID.enabled) {
                 // Load the preferences
-                var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+                var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
                 
                 // Try to get the fingerprint from the web identity
                 var fingerprint;
@@ -411,7 +411,7 @@ responseListener.prototype = {
                     // -- Function used to count the amount of colors on the canvas --
                     script += "\r\nfunction getAmountOfColors(imgData){var colors=[];for(var i=0;i<imgData.data.length;i+=4){if(colors.length == 0){colors.push(new Array(imgData.data[i+0],imgData.data[i+1],imgData.data[i+2],imgData.data[i+3]));}else{var j=0;var exists=false;while(j<colors.length && !exists){if(colors[j][0] == imgData.data[i+0] && colors[j][1] == imgData.data[i+1] && colors[j][2] == imgData.data[i+2] && colors[j][3] == imgData.data[i+3]){exists=true;}j++;}if(!exists){colors.push(new Array(imgData.data[i+0],imgData.data[i+1],imgData.data[i+2],imgData.data[i+3]));}}}return colors.length}";
                     // -- Function used to generate and inject random noise into the canvas --
-                    script += "\r\nfunction generateNoise(canvas){var imgData=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height);for(var i=0;i<imgData.data.length;i+=4){imgData.data[i+0]=Math.floor(Math.random()*256);imgData.data[i+1]=Math.floor(Math.random()*256);imgData.data[i+2]=Math.floor(Math.random()*256);}canvas.getContext('2d').putImageData(imgData,0,0);var imageObj=new Image();imageObj.onload=function(){canvas.getContext('2d').drawImage(imageObj,Math.floor(Math.random()*(canvas.width-imageObj.width)),Math.floor(Math.random()*(canvas.height-imageObj.height)));};var min = Math.min(canvas.width,canvas.height);if(min <= 32){imageObj.src='chrome://fingerprintprivacy/skin/toolbar-icon.png';}else if(min <= 64){imageObj.src='chrome://fingerprintprivacy/skin/icon32.png';}else if(min <= 128){imageObj.src='chrome://fingerprintprivacy/skin/icon64.png';}else{imageObj.src='chrome://fingerprintprivacy/skin/logo.png';}};";
+                    script += "\r\nfunction generateNoise(canvas){var imgData=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height);for(var i=0;i<imgData.data.length;i+=4){imgData.data[i+0]=Math.floor(Math.random()*256);imgData.data[i+1]=Math.floor(Math.random()*256);imgData.data[i+2]=Math.floor(Math.random()*256);}canvas.getContext('2d').putImageData(imgData,0,0);var imageObj=new Image();imageObj.onload=function(){canvas.getContext('2d').drawImage(imageObj,Math.floor(Math.random()*(canvas.width-imageObj.width)),Math.floor(Math.random()*(canvas.height-imageObj.height)));};var min = Math.min(canvas.width,canvas.height);if(min <= 32){imageObj.src='chrome://fpblock/skin/toolbar-icon.png';}else if(min <= 64){imageObj.src='chrome://fpblock/skin/icon32.png';}else if(min <= 128){imageObj.src='chrome://fpblock/skin/icon64.png';}else{imageObj.src='chrome://fpblock/skin/logo.png';}};";
                 }
                 // *** JavaScript based font detection ***
                 // -- Get the ground truth --

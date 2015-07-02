@@ -10,7 +10,7 @@
   persist="screenX screenY width height"
   windowtype="myDialogWindowType">
 
-  <script type="application/javascript" src="chrome://fingerprintprivacy/content/attribute.js"/>
+  <script type="application/javascript" src="chrome://fpblock/content/attribute.js"/>
   
   <label value="Domain:" id="domain-name"/>
   <groupbox>    
@@ -28,9 +28,9 @@
           <label value="Action:"/>
           <menulist id="attribute-action" onselect="actionSelected()">
             <menupopup>
-              <menuitem label="Allow" value="allow" image="chrome://fingerprintprivacy/skin/allow.png"/>
-              <menuitem label="Spoof" value="spoof" image="chrome://fingerprintprivacy/skin/spoof.png"/>
-              <menuitem label="Block" value="block" image="chrome://fingerprintprivacy/skin/block.png"/>
+              <menuitem label="Allow" value="allow" image="chrome://fpblock/skin/allow.png"/>
+              <menuitem label="Spoof" value="spoof" image="chrome://fpblock/skin/spoof.png"/>
+              <menuitem label="Block" value="block" image="chrome://fpblock/skin/block.png"/>
             </menupopup>
           </menulist>
         </row>

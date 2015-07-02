@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 15.04.2015                                             */
 /****************************************************************/
@@ -25,7 +25,7 @@ var httpRequestObserver = {
                 var httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
                 
                 // Get the preferences and the effective TLD service
-                var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+                var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
 			    var eTLDService = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
                 
                 // Try to get the requesting domain

@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 11.02.2015                                             */
 /****************************************************************/
@@ -13,12 +13,12 @@ var webIdentity = {
 	webidentities : [],
 	
     loadWebIdentities : function() {
-        var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+        var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
         this.webidentities = JSON.parse(preferences.getCharPref('webidentities'));
     },
 
     saveWebIdentities : function() {
-        var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+        var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
         preferences.setCharPref('webidentities', JSON.stringify(this.webidentities));
     },
 

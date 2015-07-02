@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 11.02.2015                                             */
 /****************************************************************/
@@ -11,7 +11,7 @@ Components.utils.import("resource://modules/profiles.jsm");
 var Cc = Components.classes;
 var Ci = Components.interfaces;
 
-var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
 
 /* 
    This random fingerprint generator is based on Jeffrey Mealo random user-agent 

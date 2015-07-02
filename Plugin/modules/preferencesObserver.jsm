@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                    */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 06.06.2014                                             */
 /****************************************************************/
@@ -17,12 +17,12 @@ var preferencesThirdPartiesObserver = {
     switch (aData) {
       // network.cookie.cookieBehavior was changed
       case "cookieBehavior":
-        var fingerprintprivacypreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+        var fpblockpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
         var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('network.cookie.');
         if (firefoxpreferences.getIntPref('cookieBehavior') == 1) {
-          fingerprintprivacypreferences.setBoolPref('blockthirdparties', true);
+          fpblockpreferences.setBoolPref('blockthirdparties', true);
         } else {
-          fingerprintprivacypreferences.setBoolPref('blockthirdparties', false);
+          fpblockpreferences.setBoolPref('blockthirdparties', false);
         }
         break;
     }
@@ -57,8 +57,8 @@ var preferencesDNTObserver = {
     switch (aData) {
       // privacy.donottrackheader.enabled was changed
       case "enabled":
-        var fingerprintprivacypreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
-        fingerprintprivacypreferences.setBoolPref('dntheader', !fingerprintprivacypreferences.getBoolPref('dntheader'));  
+        var fpblockpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
+        fpblockpreferences.setBoolPref('dntheader', !fpblockpreferences.getBoolPref('dntheader'));  
         break;
     }
   },

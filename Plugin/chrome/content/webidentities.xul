@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<?xml-stylesheet href="chrome://fingerprintprivacy/content/webidentities.css" type="text/css"?>
+<?xml-stylesheet href="chrome://fpblock/content/webidentities.css" type="text/css"?>
 
 <dialog
   title="Manage Web Identities"
@@ -11,7 +11,7 @@
   persist="screenX screenY width height"
   windowtype="myDialogWindowType">
 
-  <script type="application/javascript" src="chrome://fingerprintprivacy/content/webidentities.js"/>
+  <script type="application/javascript" src="chrome://fpblock/content/webidentities.js"/>
   
   <popupset>
     <menupopup id="popupmenu">

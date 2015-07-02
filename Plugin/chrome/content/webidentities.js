@@ -1,5 +1,5 @@
 /****************************************************************/
-/* -- Fingerprint Privacy --                                    */
+/* -- FP-Block --                                               */
 /* Author: Christof Ferreira Torres                             */
 /* Date: 13.02.2015                                             */
 /****************************************************************/
@@ -11,7 +11,7 @@ Components.utils.import("resource://modules/randomFingerprintGenerator.jsm");
 var Cc = Components.classes;
 var Ci = Components.interfaces;
 
-var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fingerprintprivacy.');
+var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('extensions.fpblock.');
 
 var nrOfWebIdentities;
 
@@ -134,14 +134,14 @@ function onLoad() {
         // Add the attribute action to the tree
         if (attributes[j].name != 'Plugins' && attributes[j].name != 'Mime Types') {
           if (attributes[j].action == 'spoof') {
-            innerCell.setAttribute('src', 'chrome://fingerprintprivacy/skin/spoof.png');
+            innerCell.setAttribute('src', 'chrome://fpblock/skin/spoof.png');
             innerCell.setAttribute('label', ' Spoof');
           } else 
           if (attributes[j].action == 'block') {
-            innerCell.setAttribute('src', 'chrome://fingerprintprivacy/skin/block.png');
+            innerCell.setAttribute('src', 'chrome://fpblock/skin/block.png');
             innerCell.setAttribute('label', ' Block');
           } else {
-            innerCell.setAttribute('src', 'chrome://fingerprintprivacy/skin/allow.png');
+            innerCell.setAttribute('src', 'chrome://fpblock/skin/allow.png');
             innerCell.setAttribute('label', ' Allow');
           }
         }
@@ -262,7 +262,7 @@ function viewThirdParties() {
   // Set the domain as a parameter for the third-parties window
   var params = {domain : domain};
   // Call the third-parties window
-  window.openDialog("chrome://fingerprintprivacy/content/thirdparties.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes", params).focus();
+  window.openDialog("chrome://fpblock/content/thirdparties.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes", params).focus();
 }
 
 function editAttribute() {
@@ -277,7 +277,7 @@ function editAttribute() {
   // Set the domain name and the attribute name as parameters for the edit attribute window
   var params = {url : url, name : name};
   // Call the edit attribute window
-  window.openDialog("chrome://fingerprintprivacy/content/attribute.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes", params).focus();
+  window.openDialog("chrome://fpblock/content/attribute.xul", "", "chrome, titlebar, toolbar, centerscreen, dialog=no, modal, resizable=yes", params).focus();
   // Update the tree
   var webID = webIdentity.getWebIdentity(url);
   var attribute = detection.getAttribute(url, name);
@@ -339,14 +339,14 @@ function editAttribute() {
     tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[1].setAttribute('label', webID.fingerprint.date.timezoneOffset);
   }
   if (attribute.action == 'spoof') {
-    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fingerprintprivacy/skin/spoof.png');
+    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fpblock/skin/spoof.png');
     tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('label', ' Spoof');
   } else 
   if (attribute.action == 'block') {
-    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fingerprintprivacy/skin/block.png');
+    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fpblock/skin/block.png');
     tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('label', ' Block');
   } else {
-    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fingerprintprivacy/skin/allow.png');
+    tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('src', 'chrome://fpblock/skin/allow.png');
     tree.view.getItemAtIndex(currentIndex).firstChild.childNodes[2].setAttribute('label', ' Allow');
   }
 }
