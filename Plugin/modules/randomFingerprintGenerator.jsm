@@ -6,7 +6,7 @@
 
 var EXPORTED_SYMBOLS = ["randomFingerprintGenerator"]; 
 
-Components.utils.import("resource://modules/profiles.jsm");
+Components.utils.import("resource://lib/profiles.jsm");
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;

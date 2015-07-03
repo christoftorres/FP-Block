@@ -4,9 +4,9 @@
 /* Date: 13.02.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://modules/webIdentity.jsm");
-Components.utils.import("resource://modules/detection.jsm");
-Components.utils.import("resource://modules/randomFingerprintGenerator.jsm");
+Components.utils.import("resource://lib/webIdentity.jsm");
+Components.utils.import("resource://lib/detection.jsm");
+Components.utils.import("resource://lib/randomFingerprintGenerator.jsm");
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;

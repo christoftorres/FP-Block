@@ -4,10 +4,10 @@
 /* Date: 15.04.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://modules/webIdentity.jsm");
-Components.utils.import("resource://modules/detection.jsm");
-Components.utils.import("resource://modules/httpRequestObserver.jsm");
-Components.utils.import("resource://modules/preferencesObserver.jsm");
+Components.utils.import("resource://lib/webIdentity.jsm");
+Components.utils.import("resource://lib/detection.jsm");
+Components.utils.import("resource://lib/httpRequestObserver.jsm");
+Components.utils.import("resource://lib/preferencesObserver.jsm");
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;

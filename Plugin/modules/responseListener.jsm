@@ -6,8 +6,8 @@
 
 var EXPORTED_SYMBOLS = ["responseListener"]; 
 
-Components.utils.import("resource://modules/webIdentity.jsm");
-Components.utils.import("resource://modules/detection.jsm");
+Components.utils.import("resource://lib/webIdentity.jsm");
+Components.utils.import("resource://lib/detection.jsm");
 
 Components.utils.import("resource://gre/modules/PrivateBrowsingUtils.jsm");
 

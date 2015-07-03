@@ -128,7 +128,7 @@
 		    	firefoxpreferences.setIntPref('value', 1);
 		    }
 
-		    Components.utils.import("resource://modules/profiles.jsm");
+		    Components.utils.import("resource://lib/profiles.jsm");
 
 		    function fetchLatestProfiles() {
 		    	var loader = document.getElementById('ajax-loader');
