@@ -4,9 +4,9 @@
 /* Date: 02.02.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://lib/webIdentity.jsm");
-Components.utils.import("resource://lib/detection.jsm");
-Components.utils.import("resource://lib/randomFingerprintGenerator.jsm");
+Components.utils.import("resource://modules/webIdentity.jsm");
+Components.utils.import("resource://modules/detection.jsm");
+Components.utils.import("resource://modules/randomFingerprintGenerator.jsm");
 
 // Called once when the dialog displays
 function onLoad() {

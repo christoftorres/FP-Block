@@ -1,12 +1,12 @@
 /****************************************************************/
 /* -- FP-Block --                                               */
 /* Author: Christof Ferreira Torres                             */
-/* Date: 13.02.2015                                             */
+/* Date: 31.08.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://lib/webIdentity.jsm");
-Components.utils.import("resource://lib/detection.jsm");
-Components.utils.import("resource://lib/randomFingerprintGenerator.jsm");
+Components.utils.import("resource://modules/webIdentity.jsm");
+Components.utils.import("resource://modules/detection.jsm");
+Components.utils.import("resource://modules/randomFingerprintGenerator.jsm");
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;
@@ -15,6 +15,9 @@ var preferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPref
 
 var nrOfWebIdentities;
 
+
+// This is just a test funtion in order to measure how much time it takes to generate (and reach) the web identities limit
+/*
 function generateWebIdentities() {
   clearWebIdentities();
   var start = new Date().getTime();
@@ -29,6 +32,7 @@ function generateWebIdentities() {
   var elapsed = stop - start;
   document.getElementById("number-of-generations").innerHTML += " " + elapsed + "ms";
 }
+*/
 
 // Called once when the dialog displays
 function onLoad() {
@@ -156,10 +160,7 @@ function onLoad() {
       
     }
   }
-  document.getElementById("number-of-web-identities").innerHTML = "Number of web identities: "+nrOfWebIdentities;
-  if (preferences.getBoolPref('debuggingmode')) {
-    document.getElementById("number-of-web-identities").innerHTML += "<span style='color:gray'>/"+webIDs.length+"</span>";
-  }
+  updateNrOfWebIdentities();
 }
 
 function clearWebIdentities() {
@@ -174,10 +175,7 @@ function clearWebIdentities() {
   }
   // Update the number of web identities
   nrOfWebIdentities = 0;
-  document.getElementById("number-of-web-identities").innerHTML = "Number of web identities: "+nrOfWebIdentities;
-  if (preferences.getBoolPref('debuggingmode')) {
-    document.getElementById("number-of-web-identities").innerHTML += "<span style='color:gray'>/"+webIdentity.getWebIdentities().length+"</span>";
-  }
+  updateNrOfWebIdentities();
 }
 
 function showPopup() {
@@ -370,10 +368,7 @@ function deleteWebIdentityAttribute() {
   tree.view.getItemAtIndex(currentIndex).parentNode.removeChild(tree.view.getItemAtIndex(currentIndex));
   // Update the number of web identities
   nrOfWebIdentities--;
-  document.getElementById("number-of-web-identities").innerHTML = "Number of web identities: "+nrOfWebIdentities;
-  if (preferences.getBoolPref('debuggingmode')) {
-    document.getElementById("number-of-web-identities").innerHTML += "<span style='color:gray'>/"+webIdentity.getWebIdentities().length+"</span>";
-  }
+  updateNrOfWebIdentities();
 }
 
 function regenerateWebIdentityAttribute() {
@@ -557,5 +552,18 @@ function regenerateWebIdentityAttribute() {
     } catch(e) {
       alert(e);
     }
+  }
+}
+
+function updateNrOfWebIdentities() {
+  while (document.getElementById("number-of-web-identities").lastChild) {
+    document.getElementById("number-of-web-identities").removeChild(document.getElementById("number-of-web-identities").lastChild);
+  }
+  document.getElementById("number-of-web-identities").appendChild(document.createTextNode("Number of web identities: "+nrOfWebIdentities));
+  if (preferences.getBoolPref('debuggingmode')) {
+    var span = document.createElement("SPAN");
+    span.setAttribute('style', 'color:gray');
+    span.appendChild(document.createTextNode("/"+webIdentity.getWebIdentities().length));
+    document.getElementById("number-of-web-identities").appendChild(span);
   }
 }

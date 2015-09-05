@@ -2,9 +2,10 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
  
 <prefwindow 
-     title="FP-Block Preferences"
-     xmlns:html="http://www.w3.org/1999/xhtml"
-     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	id="fp-block-preference-window"
+    title="FP-Block Preferences"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <html:style>
 	    .addon-version {
@@ -16,7 +17,7 @@
 	        padding-top: 15px;
 	        margin-bottom: 15px;
 	        max-width: 420px;
-	        min-height: 330px;
+	        min-height: 370px;
 	    }
 	    
 	    .about-info-left {
@@ -54,119 +55,11 @@
 			<preference id="fp-block-delete-etags" name="extensions.fpblock.deleteetags" type="bool"/>
 			<preference id="fp-block-autoblock-social" name="extensions.fpblock.autoblocksocial" type="bool"/>
 			<preference id="fp-block-autoblock-plugins" name="extensions.fpblock.autoblockplugins" type="bool"/>
+			<preference id="fp-block-autoblock-connections" name="extensions.fpblock.autoblockconnections" type="bool"/>
 			<preference id="fp-block-debugging-mode" name="extensions.fpblock.debuggingmode" type="bool"/>
 		</preferences>
 
-		<script>
-    
-			window.onload = function() {
-				getAddonNameVer(function(addon) {
-		            document.getElementById('version').value = addon.name + " " + addon.version;
-		            var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
-		            if (fpblockpreferences.getCharPref('latestfetch') == '') {
-		            	document.getElementById('latest-fetch').value = "Last time fetched: never";
-		            } else {
-		            	var latestfetch = new Date(parseInt(fpblockpreferences.getCharPref('latestfetch')));
-		    			var day = (String(latestfetch.getDate()).length == 1) ? "0" + latestfetch.getDate() : latestfetch.getDate();
-		    			var month = (String(latestfetch.getMonth() + 1).length == 1) ? "0" + (latestfetch.getMonth() + 1) : latestfetch.getMonth() + 1;
-		    			var year = latestfetch.getFullYear();
-						var hour = (String(latestfetch.getHours()).length == 1) ? "0" + latestfetch.getHours() : latestfetch.getHours();
-						var minutes = (String(latestfetch.getMinutes()).length == 1) ? "0" + latestfetch.getMinutes() : latestfetch.getMinutes();
-		    			var seconds = (String(latestfetch.getSeconds()).length == 1) ? "0" + latestfetch.getSeconds() : latestfetch.getSeconds();
-		    			document.getElementById('latest-fetch').value = "Last time fetched: " + day + "/" + month + "/" + year + " " + hour + ":" + minutes + ":" + seconds;
-		            }
-		        });
-			};
-		    
-		    function getAddonNameVer(callback) {
-		        Components.utils.import("resource://gre/modules/AddonManager.jsm");
-		        AddonManager.getAddonByID('fpblock@fingerprint.christoftorres.com', callback);
-		    }
-
-		    function blockThirdParties() {
-		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
-		    	var cookieBehaviour = !fpblockpreferences.getBoolPref('blockthirdparties');
-		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.cookie.');
-		    	if (cookieBehaviour) {
-		    		firefoxpreferences.setIntPref('cookieBehavior', 1);
-		    	} else {
-		    		firefoxpreferences.setIntPref('cookieBehavior', 0);
-		    	}
-		    }
-
-		    function setDNTHeader() {
-		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
-		    	var enabled = !fpblockpreferences.getBoolPref('dntheader');
-		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('privacy.donottrackheader.');
-		    	firefoxpreferences.setBoolPref('enabled', enabled);
-		    	if (enabled) {
-		    		firefoxpreferences.setIntPref('value', 1);
-		    	} else {
-		    		firefoxpreferences.setIntPref('value', 0);
-		    	}
-		    }
-
-		    function resetDefaultSettings() {
-		    	var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
-		    	// General preferences
-		    	fpblockpreferences.setBoolPref('notifydetections', true);
-		    	// HTTP preferences
-		    	fpblockpreferences.setBoolPref('blockthirdparties', true);
-		    	//fpblockpreferences.setBoolPref('deletereferer', true);
-		    	fpblockpreferences.setBoolPref('dntheader', true);
-		    	fpblockpreferences.setBoolPref('deleteetags', true);
-		    	// JavaScript preferences
-		    	fpblockpreferences.setBoolPref('autoblocksocial', false);
-		    	fpblockpreferences.setBoolPref('autoblockplugins', true);
-		    	// Debugging mode
-		    	fpblockpreferences.setBoolPref('debuggingmode', false);
-
-		    	var firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.cookie.');
-		    	firefoxpreferences.setIntPref('cookieBehavior', 1);
-		    	firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('privacy.donottrackheader.');
-		    	firefoxpreferences.setBoolPref('enabled', true);
-		    	firefoxpreferences.setIntPref('value', 1);
-		    }
-
-		    Components.utils.import("resource://lib/profiles.jsm");
-
-		    function fetchLatestProfiles() {
-		    	var loader = document.getElementById('ajax-loader');
-				loader.style.visibility = 'visible';
-				var path    = "http://christoftorres.no-ip.org/Experiments/profiles/";  
-				var files   = ["chrome.json", "firefox.json", "opera.json", "safari.json"];
-				var xmlhttp = new XMLHttpRequest();
-				var index   = 0;
-				profiles    = [];
-				xmlhttp.onreadystatechange = function() {
-			    	if (xmlhttp.readyState == 4) {
-			    		if (xmlhttp.status == 200) {
-			    			profiles.push(JSON.parse(xmlhttp.responseText));
-			      			index++;
-			      			if (index != files.length) {
-			        			xmlhttp.open("POST", path+files[index], true);
-			        			xmlhttp.send();
-			      			} else {
-			      				var fpblockpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('extensions.fpblock.');
-				    			fpblockpreferences.setCharPref('latestfetch', new Date().getTime());
-				    			var latestfetch = new Date(parseInt(fpblockpreferences.getCharPref('latestfetch')));
-				    			var day = (String(latestfetch.getDate()).length == 1) ? "0" + latestfetch.getDate() : latestfetch.getDate();
-				    			var month = (String(latestfetch.getMonth() + 1).length == 1) ? "0" + (latestfetch.getMonth() + 1) : latestfetch.getMonth() + 1;
-				    			var year = latestfetch.getFullYear();
-								var hour = (String(latestfetch.getHours()).length == 1) ? "0" + latestfetch.getHours() : latestfetch.getHours();
-								var minutes = (String(latestfetch.getMinutes()).length == 1) ? "0" + latestfetch.getMinutes() : latestfetch.getMinutes();
-				    			var seconds = (String(latestfetch.getSeconds()).length == 1) ? "0" + latestfetch.getSeconds() : latestfetch.getSeconds();
-				    			document.getElementById('latest-fetch').value = "Last time fetched: " + day + "/" + month + "/" + year + " " + hour + ":" + minutes + ":" + seconds;
-			        			loader.style.visibility = 'hidden';
-			      			}
-			      		}	
-			    	}
-				}
-				xmlhttp.open("POST", path+files[index], true);
-			  	xmlhttp.send();
-			}
-		    
-		</script>
+		<script src="options.js"/>
 
 		<tabbox id="FPBlockPreferences">
 			<tabs>
@@ -287,6 +180,9 @@
 							<column flex="1"/>
 						</columns>
 						<rows>
+							<row>
+								<checkbox class="checkbox" id="block-automatic-connections" preference="fp-block-autoblock-connections" label="Prevent Firefox from doing automatic connections (page preloading, DNS and link prefetching, etc.)" oncommand="blockAutomaticConnections();"/>
+							</row>
 							<row>
 								<button label="Reset Default Settings" oncommand='resetDefaultSettings();'/>
 							</row>

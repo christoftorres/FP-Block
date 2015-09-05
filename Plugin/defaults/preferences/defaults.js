@@ -1,7 +1,7 @@
 /****************************************************************/
-/* -- FP-Block --                                    */
+/* -- FP-Block --                                               */
 /* Author: Christof Ferreira Torres                             */
-/* Date: 13.02.2015                                             */
+/* Date: 21.08.2015                                             */
 /****************************************************************/
 
 // First run
@@ -16,6 +16,8 @@ pref("extensions.fpblock.deleteetags", true);
 // JavaScript preferences
 pref("extensions.fpblock.autoblocksocial", false);
 pref("extensions.fpblock.autoblockplugins", true);
+// Firefox automatic connections preferences
+pref("extensions.fpblock.autoblockconnections", true);
 // Data storage
 pref("extensions.fpblock.webidentities", "[]");
 pref("extensions.fpblock.detections", "[]");

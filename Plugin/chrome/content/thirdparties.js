@@ -4,7 +4,7 @@
 /* Date: 03.02.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://lib/webIdentity.jsm");
+Components.utils.import("resource://modules/webIdentity.jsm");
 
 // Called once when the dialog displays
 function onLoad() {

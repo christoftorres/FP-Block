@@ -1,6 +1,6 @@
 content     fpblock    chrome/content/
 content     fpblock    chrome/content/ contentaccessible=yes
-resource     lib    modules/
+resource     modules    modules/
 resource     profiles    profiles/
 overlay chrome://browser/content/browser.xul chrome://fpblock/content/browser.xul
 

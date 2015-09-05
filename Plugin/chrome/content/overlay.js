@@ -1,13 +1,13 @@
 /****************************************************************/
 /* -- FP-Block --                                               */
 /* Author: Christof Ferreira Torres                             */
-/* Date: 15.04.2015                                             */
+/* Date: 05.09.2015                                             */
 /****************************************************************/
 
-Components.utils.import("resource://lib/webIdentity.jsm");
-Components.utils.import("resource://lib/detection.jsm");
-Components.utils.import("resource://lib/httpRequestObserver.jsm");
-Components.utils.import("resource://lib/preferencesObserver.jsm");
+Components.utils.import("resource://modules/webIdentity.jsm");
+Components.utils.import("resource://modules/detection.jsm");
+Components.utils.import("resource://modules/httpRequestObserver.jsm");
+Components.utils.import("resource://modules/preferencesObserver.jsm");
 
 var Cc = Components.classes;
 var Ci = Components.interfaces;
@@ -18,76 +18,125 @@ var fpBlock = new function() {
 	var previousdomain = null;
 	return {
 		init : function() {
-			// Install toolbar button at the first run
-	    	if (preferences.getBoolPref("firstrun")) {
-				// https://developer.mozilla.org/en-US/docs/Code_snippets/Toolbar
-	            /**
-	             * Installs the toolbar button with the given ID into the given
-	             * toolbar, if it is not already present in the document.
-	             *
-	             * @param {string} toolbarId The ID of the toolbar to install to.
-	             * @param {string} id The ID of the button to install.
-	             * @param {string} afterId The ID of the element to insert after. @optional
-	             */
-	            function installButton(toolbarId, id, afterId) {
-	                if (!document.getElementById(id)) {
-	                    var toolbar = document.getElementById(toolbarId);
-	             
-	                    // If no afterId is given, then append the item to the toolbar
-	                    var before = null;
-	                    if (afterId) {
-	                        let elem = document.getElementById(afterId);
-	                        if (elem && elem.parentNode == toolbar)
-	                            before = elem.nextElementSibling;
-	                    }
-	             
-	                    toolbar.insertItem(id, before);
-	                    toolbar.setAttribute("currentset", toolbar.currentSet);
-	                    document.persist(toolbar.id, "currentset");
-	             
-	                    if (toolbarId == "addon-bar")
-	                        toolbar.collapsed = false;
-	                }
-	            }
-			            
-			    installButton("nav-bar", "fp-block-toolbar-button");
-			    // The "addon-bar" is available since Firefox 4
-			    installButton("addon-bar", "fp-block-toolbar-button");
-	            preferences.setBoolPref("firstrun", false);
-	            // Block third-party cookies
-	            var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('network.cookie.');
-	            firefoxpreferences.setIntPref('cookieBehavior', 1);
+	    	try {
+		    	// Install toolbar button at the first run
+		    	if (preferences.getBoolPref("firstrun")) {
+					// https://developer.mozilla.org/en-US/docs/Code_snippets/Toolbar
+		            /**
+		             * Installs the toolbar button with the given ID into the given
+		             * toolbar, if it is not already present in the document.
+		             *
+		             * @param {string} toolbarId The ID of the toolbar to install to.
+		             * @param {string} id The ID of the button to install.
+		             * @param {string} afterId The ID of the element to insert after. @optional
+		             */
+		            function installButton(toolbarId, id, afterId) {
+		                if (!document.getElementById(id)) {
+		                    var toolbar = document.getElementById(toolbarId);
+		             
+		                    // If no afterId is given, then append the item to the toolbar
+		                    var before = null;
+		                    if (afterId) {
+		                        let elem = document.getElementById(afterId);
+		                        if (elem && elem.parentNode == toolbar)
+		                            before = elem.nextElementSibling;
+		                    }
+		             
+		                    toolbar.insertItem(id, before);
+		                    toolbar.setAttribute("currentset", toolbar.currentSet);
+		                    document.persist(toolbar.id, "currentset");
+		             
+		                    if (toolbarId == "addon-bar")
+		                        toolbar.collapsed = false;
+		                }
+		            }
+				    installButton("nav-bar", "fp-block-toolbar-button");
+				    // The "addon-bar" is available since Firefox 4
+				    installButton("addon-bar", "fp-block-toolbar-button");
+		            preferences.setBoolPref("firstrun", false);
+		            // Block third-party cookies
+		            var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('network.cookie.');
+		            firefoxpreferences.setIntPref('cookieBehavior', 1);
+				}
+				// Get the tab container
+				var container = gBrowser.tabContainer;
+				// Add an event listener to the event of opening a new tab
+				container.addEventListener("TabOpen", fpBlock.tabOpen, false);
+				// Add an event listener to the event of clicking on an open tab
+				container.addEventListener("TabSelect", fpBlock.tabSelect, false);
+				// Add an event listener when the page (tab) has loaded
+				gBrowser.addEventListener("load", fpBlock.pageLoad, true);
+				// Get the script loader
+				var loader = Cc['@mozilla.org/moz/jssubscript-loader;1'].getService(Ci.mozIJSSubScriptLoader);
+				// Load jQuery 2.1.0
+	  			loader.loadSubScript('chrome://fpblock/content/jquery-2.1.0.min.js', this);
+	      		// Load web identities
+	      		webIdentity.loadWebIdentities();
+	      		// Load detections
+	      		detection.loadDetections();
+	      		// Register the HTTP request observer
+				httpRequestObserver.register();
+				// Register the third-party cookies preferences observer
+				preferencesThirdPartiesObserver.register();
+				// Register the DNT header preferences observer
+				preferencesDNTObserver.register();
+				// Register the automatic connections preferences observer
+				preferencesAutomaticConnectionsObserver.register();
+				// Set the block third-party cookies preference
+				var cookieBehaviour = preferences.getBoolPref('blockthirdparties');
+		    	var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('network.cookie.');
+		    	if (cookieBehaviour) {
+		    		firefoxpreferences.setIntPref('cookieBehavior', 1);
+		    	} else {
+		    		firefoxpreferences.setIntPref('cookieBehavior', 0);
+		    	}
+				// Set the DNT header preference
+				var enabled = preferences.getBoolPref('dntheader');
+		    	firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('privacy.donottrackheader.');
+		    	firefoxpreferences.setBoolPref('enabled', enabled);
+		    	if (enabled) {
+		    		firefoxpreferences.setIntPref('value', 1);
+		    	} else {
+		    		firefoxpreferences.setIntPref('value', 0);
+		    	}
+		    	// Set block automatic connections preference
+		    	enabled = preferences.getBoolPref('autoblockconnections');
+			    /* Page preloading */
+			    firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.http.');
+			    if (enabled) {
+			    	firefoxpreferences.setIntPref('speculative-parallel-limit', 0);
+			    } else {
+			    	firefoxpreferences.setIntPref('speculative-parallel-limit', 6);
+			    }
+			    /* DNS prefetching */
+			    firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.dns.');
+			    if (enabled) {
+			    	firefoxpreferences.setBoolPref('disablePrefetch', true);
+			    } else {
+			    	firefoxpreferences.setBoolPref('disablePrefetch', false);
+			    }
+			    /* Link prefetching */
+				firefoxpreferences = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefService).getBranch('network.');
+			    if (enabled) {
+			    	firefoxpreferences.setBoolPref('prefetch-next', false);
+			    } else {
+			    	firefoxpreferences.setBoolPref('prefetch-next', true);
+			    }
+			} catch(e) {
+                alert('Error initializing FP-Block!');
 			}
-			var loader = Cc['@mozilla.org/moz/jssubscript-loader;1'].getService(Ci.mozIJSSubScriptLoader);
-			// Load jQuery 2.1.0
-  			loader.loadSubScript('chrome://fpblock/content/jquery-2.1.0.min.js', this);
-      		// Load web identities
-      		webIdentity.loadWebIdentities();
-      		// Load detections
-      		detection.loadDetections();
-      		// Register the HTTP request observer
-			httpRequestObserver.register();
-			// Register the third-party cookies preferences observer
-			preferencesThirdPartiesObserver.register();
-			// Register the DNT header preferences observer
-			preferencesDNTObserver.register();
-			// Set the block third-party cookies preference
-			var cookieBehaviour = preferences.getBoolPref('blockthirdparties');
-	    	var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('network.cookie.');
-	    	if (cookieBehaviour) {
-	    		firefoxpreferences.setIntPref('cookieBehavior', 1);
-	    	} else {
-	    		firefoxpreferences.setIntPref('cookieBehavior', 0);
-	    	}
-			// Set the DNT header preference
-			var enabled = preferences.getBoolPref('dntheader');
-	    	var firefoxpreferences = Cc['@mozilla.org/preferences-service;1'].getService(Ci.nsIPrefService).getBranch('privacy.donottrackheader.');
-	    	firefoxpreferences.setBoolPref('enabled', enabled);
-	    	if (enabled) {
-	    		firefoxpreferences.setIntPref('value', 1);
-	    	} else {
-	    		firefoxpreferences.setIntPref('value', 0);
-	    	}
+		},
+
+		tabOpen : function(event) {
+	    	fpBlock.toggleToolbarButton(gBrowser.getBrowserForTab(event.target));
+		},
+
+		tabSelect : function(event) {
+	    	fpBlock.toggleToolbarButton(gBrowser.selectedBrowser);
+		},	   
+
+		pageLoad : function(event) {
+			fpBlock.toggleToolbarButton(gBrowser.selectedBrowser);
 		},
 
     	showPopupMenu : function() {
@@ -117,7 +166,7 @@ var fpBlock = new function() {
 	            // Normal browsing mode
 	            } else {
 	            	webID = webIdentity.getWebIdentity(domain);
-	        		$('#private-browsing').html('');
+	            	$('#private-browsing').html('');
 	            }
 	            
 	        	if (previousdomain != domain) {
@@ -128,7 +177,11 @@ var fpBlock = new function() {
 					document.getElementById('fpblock-popup').style.height = 276 + 'px';
 	        		previousdomain = domain;
 	        	}
-				$('#domain').html(domain);
+	        	
+	        	while (document.getElementById('domain').lastChild) {
+   	 				document.getElementById('domain').removeChild(document.getElementById('domain').lastChild);
+  				}
+				document.getElementById('domain').appendChild(document.createTextNode(domain));
 				
 				// Social Plugins
 	        	try {
@@ -176,7 +229,10 @@ var fpBlock = new function() {
 	    					attributesSpoofedBlocked++;
 	    				}
 	    			}
-		        	$('#detected-attributes').html(attributesSpoofedBlocked+"/"+attributes.length);
+	    			while (document.getElementById('detected-attributes').lastChild) {
+   	 					document.getElementById('detected-attributes').removeChild(document.getElementById('detected-attributes').lastChild);
+  					}
+		        	document.getElementById('detected-attributes').appendChild(document.createTextNode(attributesSpoofedBlocked+"/"+attributes.length));
 		        	
 		        	var thirdparties = webID.thirdparties;
 		        	var thirdpartiesBlocked = 0;
@@ -185,8 +241,11 @@ var fpBlock = new function() {
 	    					thirdpartiesBlocked++;
 	    				}
 	    			}
-		        	$('#detected-third-parties').html(thirdpartiesBlocked+"/"+thirdparties.length);
-
+	    			while (document.getElementById('detected-third-parties').lastChild) {
+   	 					document.getElementById('detected-third-parties').removeChild(document.getElementById('detected-third-parties').lastChild);
+  					}
+		        	document.getElementById('detected-third-parties').appendChild(document.createTextNode(thirdpartiesBlocked+"/"+thirdparties.length));
+		        	
 		        	// Detected attributes
 		        	$('#attribute-list').html('');
 					var serviceSurface = $(document.getElementById('attribute-list'));
@@ -343,7 +402,12 @@ var fpBlock = new function() {
 	        	document.getElementById('website-switch').style.display = 'none';
 	        	document.getElementById('domain-error').style.display = 'block';
 	        	document.getElementById('fpblock-popup').style.height = 276 + 'px';
-				$('#domain').html(domain);
+				
+	        	while (document.getElementById('domain').lastChild) {
+   	 				document.getElementById('domain').removeChild(document.getElementById('domain').lastChild);
+  				}
+				document.getElementById('domain').appendChild(document.createTextNode(domain));
+
 				if (preferences.getBoolPref("debuggingmode")) {
 					$('#domain-error').html('<image src="chrome://fpblock/skin/error.png" style="margin: 0px 20px 0px 20px;"/><div>'+e+'</div>');
 	        	} else {
@@ -505,17 +569,46 @@ var fpBlock = new function() {
 
             // Try to enable/disable the website
             try {
-                // Private browsing mode
+            	// Private browsing mode
                 if (browser.contentWindow && PrivateBrowsingUtils.isWindowPrivate(browser.contentWindow)) {
 					privateWebIdentity.getPrivateWebIdentity(domain).enabled = !privateWebIdentity.getPrivateWebIdentity(domain).enabled;
-                // Normal browsing mode
+					// Disable/enable toolbar-icon
+					document.getElementById("fp-block-toolbar-button").setAttribute("fpblockActivated", privateWebIdentity.getPrivateWebIdentity(domain).enabled);
+				// Normal browsing mode
                 } else {
 					webIdentity.getWebIdentity(domain).enabled = !webIdentity.getWebIdentity(domain).enabled;
+					// Disable/enable toolbar-icon
+					document.getElementById("fp-block-toolbar-button").setAttribute("fpblockActivated", webIdentity.getWebIdentity(domain).enabled);
                 }
             } catch(e) {
                 alert(e);
             }       
         	content.location.reload();
+		},
+
+		toggleToolbarButton : function(browser) {  
+			if (browser != null) {       
+				var domain  =  null;
+				// Try to get the domain name 
+				try {
+	                var eTLDService = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
+	                domain = eTLDService.getBaseDomain(browser.currentURI).toLowerCase();
+	            } catch(e) {
+	                domain = 'localhost';
+	            }
+	            // Try to disable/enable toolbar-icon
+	            try {
+	            	// Private browsing mode
+	            	if (browser.contentWindow && PrivateBrowsingUtils.isWindowPrivate(browser.contentWindow)) {
+	            		document.getElementById("fp-block-toolbar-button").setAttribute("fpblockActivated", privateWebIdentity.getPrivateWebIdentity(domain).enabled);
+					// Normal browsing mode
+	                } else {
+	                	document.getElementById("fp-block-toolbar-button").setAttribute("fpblockActivated", webIdentity.getWebIdentity(domain).enabled);
+	                }
+	            } catch(e) {
+	                document.getElementById("fp-block-toolbar-button").setAttribute("fpblockActivated", true);
+	            }
+	        }
 		},
 
 		detectionListener : function(event) {
@@ -673,12 +766,19 @@ var fpBlock = new function() {
       		detection.saveDetections();
 	        // Save web identities
       		webIdentity.saveWebIdentities();
+      		// Remove tab event listeners
+			var container = gBrowser.tabContainer;
+			container.removeEventListener("TabOpen", fpBlock.tabOpen, false);
+			container.removeEventListener("TabSelect", fpBlock.tabSelect, false);
+			gBrowser.removeEventListener("load", fpBlock.pageLoad, true);
 			// Unregister the HTTP Request Observer
 		    httpRequestObserver.unregister();
 		    // Unregister the third-party cookies preferences observer
 			preferencesThirdPartiesObserver.unregister();
 			// Unregister the DNT header preferences observer
 			preferencesDNTObserver.unregister();
+			// Unregister the automatic connections preferences observer
+			preferencesAutomaticConnectionsObserver.unregister();
 		}
 	};
 }();
@@ -688,3 +788,25 @@ window.addEventListener("unload", fpBlock.shutdown, false);
 
 var mainWindow = window.QueryInterface(Ci.nsIInterfaceRequestor).getInterface(Ci.nsIWebNavigation).QueryInterface(Ci.nsIDocShellTreeItem).rootTreeItem.QueryInterface(Ci.nsIInterfaceRequestor).getInterface(Ci.nsIDOMWindow);
 mainWindow.document.addEventListener("DetectionEvent", function(event) { fpBlock.detectionListener(event); }, false, true);
+
+var addonListener = {
+    onUninstalling: function(addon, restart) {
+        if (addon.id == "fpblock@fingerprint.christoftorres.com") {
+            // Reset Firefox preferences
+            Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("network.cookie.").clearPref("cookieBehavior");
+	    	Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("privacy.donottrackheader.").clearPref("enabled");
+	    	Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("network.http.").clearPref("speculative-parallel-limit");
+	    	Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("network.dns.").clearPref("disablePrefetch");
+	    	Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("network.").clearPref("prefetch-next");
+            // Remove FP-Block preferences
+            Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("extensions.").deleteBranch("fpblock");
+        }
+    }
+}
+
+try {
+    Components.utils.import("resource://gre/modules/AddonManager.jsm");
+    AddonManager.addAddonListener(addonListener);
+} catch (e) { 
+	alert(e);
+}
